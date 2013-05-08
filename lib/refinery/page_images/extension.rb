@@ -26,8 +26,8 @@ module Refinery
             image_pages_to_delete.destroy_all
 
             data.each do |i, image_data|
-              image_page_id, image_id, caption =
-                image_data.values_at('image_page_id', 'id', 'caption')
+              image_page_id, image_id, caption, title, photoby_url, yellowkorner_url =
+                image_data.values_at('image_page_id', 'id', 'caption', 'title', 'photoby_url', 'yellowkorner_url')
 
               next if image_id.blank?
 
@@ -39,6 +39,9 @@ module Refinery
 
               image_page.position = i
               image_page.caption = caption if Refinery::PageImages.captions
+              image_page.title = title
+              image_page.photoby_url = photoby_url
+              image_page.yellowkorner_url = yellowkorner_url
               image_page.save
             end
           end
